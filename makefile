@@ -1,7 +1,8 @@
 # Used by `image`, `push` & `deploy` targets, override as required
-IMAGE_REG ?= docker.io
-IMAGE_REPO ?= vikasdfghjl/py-demoapp
-IMAGE_TAG ?= latest
+# IMAGE_REG ?= docker.io
+DOCKER_REPO ?= vikasdfghjl
+DOCKER_IMAGE ?= py-demoapp
+DOCKER_IMAGE_TAG ?= latest
 
 # # Used by `deploy` target, sets Azure webap defaults, override as required
 # AZURE_RES_GROUP ?= temp-demoapps
@@ -31,10 +32,10 @@ lint-fix: venv  ## 📜 Lint & format, will try to fix errors and modify code
 
 image:  ## 🔨 Build container image from Dockerfile 
 	docker build . --file build/Dockerfile \
-	--tag $(IMAGE_REG)/$(IMAGE_REPO):$(IMAGE_TAG)
+	--tag $(DOCKER_REPO)/$(DOCKER_IMAGE):$(DOCKER_IMAGE_TAG)
 
-# push:  ## 📤 Push container image to registry 
-# 	docker push $(IMAGE_REG)/$(IMAGE_REPO):$(IMAGE_TAG)
+push:  ## 📤 Push container image to registry 
+	docker push $(DOCKER_REPO)/$(DOCKER_IMAGE):$(DOCKER_IMAGE_TAG)
 
 run: venv  ## 🏃 Run the server locally using Python & Flask
 	. $(SRC_DIR)/.venv/bin/activate \
